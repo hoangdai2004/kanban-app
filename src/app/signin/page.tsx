@@ -1,12 +1,14 @@
 'use client'
 
+
 import { useState } from "react"
-import axios from "@/lib/axios"
 import { isAxiosError } from "axios"
+import { useRouter } from "next/navigation"
+
+import { userApi } from "@/apis/userApi"
 import IconImage from "@/components/IconImage"
 import Input from "@/components/Input"
 import Button from "@/components/Button"
-import { useRouter } from "next/navigation"
 
 export default function SignInPage() {
   const router = useRouter()
@@ -24,12 +26,13 @@ export default function SignInPage() {
     setSuccess(false)
 
     try {
-      const res = await axios.post('/api/signin', { email, password })
-      if (res.status === 200) {
+      const userId = await userApi.signIn({email, password})
+      if (userId) {
+        localStorage.setItem("userId", userId)
         setSuccess(true)
         setTimeout(() => {
           router.push('/kanban')
-        }, 1500)
+        }, 1000)
       }
     } catch (err) {
       if (isAxiosError(err)) {

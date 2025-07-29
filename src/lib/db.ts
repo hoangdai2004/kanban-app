@@ -9,16 +9,18 @@ type User = {
   password: string 
 };
 
-export type Task = { 
-  id: string; 
-  title: string; 
-  column: 'open' | 'inprogress' | 'inreview' | 'closed';
-  type?: 'Task' | 'Bug';
-  code?: string;
-  deadline?: string;
-  priority?: boolean;
-  assigneeId?: string;
+export type Task = {
+  id: string;
+  title: string;
+  code: string;
+  type: "Task" | "Bug";
+  column: "open" | "inprogress" | "inreview" | "closed";
+  dueDate?: string;
+  urgent?: boolean;
+  assigneeAvatar?: string;
+  assigneeName?: string;
 };
+
 
 type Schema = {
   users: User[];

@@ -10,49 +10,67 @@
   "tasks": [
     {
       "id": "1",
-      "title": "Set up project wiki",
+      "title": "Fix login redirect bug",
+      "code": "BUG-101",
+      "type": "Bug",
       "column": "inprogress",
-      "type": "Task",
-      "code": "TSK-101"
+      "assigneeAvatar": "/avatars/user1.png",
+      "assigneeName": "Alice",
+      "dueDate": "2025-08-01",
+      "urgent": true
     },
     {
       "id": "2",
-      "title": "Fix broken links",
+      "title": "Create Kanban board layout",
+      "code": "TASK-102",
+      "type": "Task",
       "column": "open",
-      "type": "Bug",
-      "code": "BUG-201",
-      "deadline": "May 1",
-      "priority": true
+      "assigneeAvatar": "/avatars/user2.png",
+      "assigneeName": "Bob",
+      "dueDate": "2025-08-03",
+      "urgent": false
     },
     {
       "id": "3",
-      "title": "Implement login logic",
-      "column": "inreview",
+      "title": "Refactor API logic",
+      "code": "TASK-103",
       "type": "Task",
-      "code": "TSK-102"
+      "column": "inreview",
+      "assigneeAvatar": "/avatars/user3.png",
+      "assigneeName": "Charlie",
+      "dueDate": "2025-08-04"
     },
     {
       "id": "4",
-      "title": "Add Kanban drag & drop",
+      "title": "Wrong status color in UI",
+      "code": "BUG-104",
+      "type": "Bug",
       "column": "open",
-      "type": "Task",
-      "code": "TSK-103",
-      "priority": false
+      "assigneeAvatar": "/avatars/user4.png",
+      "assigneeName": "Dana",
+      "dueDate": "2025-07-30",
+      "urgent": true
     },
     {
       "id": "5",
-      "title": "Deploy app to Vercel",
-      "column": "closed",
+      "title": "Deploy to production",
+      "code": "TASK-105",
       "type": "Task",
-      "code": "TSK-104"
+      "column": "closed",
+      "assigneeAvatar": "/avatars/user5.png",
+      "assigneeName": "Eve",
+      "dueDate": "2025-07-27"
     },
     {
-      "id": "6",
-      "title": "Fix login redirect bug",
-      "column": "inreview",
-      "type": "Bug",
-      "code": "BUG-202",
-      "priority": true
+      "id": "5d74dccd-1504-4c88-9fa6-b4dd1d64a85b",
+      "column": "inprogress",
+      "title": "ddddddddd",
+      "type": "Task",
+      "dueDate": "",
+      "urgent": false,
+      "assigneeAvatar": "/avatar-placeholder.png",
+      "assigneeName": "You",
+      "code": "TASK-2141"
     }
   ]
 }

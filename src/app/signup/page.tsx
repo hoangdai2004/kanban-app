@@ -1,12 +1,13 @@
 'use client'
 
 import { useState } from "react"
-import axios from "@/lib/axios"
 import { isAxiosError } from "axios"
+import { useRouter } from "next/navigation"
+
+import { userApi } from "@/apis/userApi"
 import IconImage from "@/components/IconImage"
 import Input from "@/components/Input"
 import Button from "@/components/Button"
-import { useRouter } from "next/navigation"
 
 export default function SignUpPage() {
   const router = useRouter()
@@ -20,21 +21,14 @@ export default function SignUpPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Submitting form...") 
     setError('')
     setSuccess(false)
     setLoading(true)
 
     try {
-      const res = await axios.post('/api/signup', {
-        name,
-        email,
-        password,
-      })
+      const userId = await userApi.create({name, email, password})
 
-      console.log(res.data)
-
-      if (res.status === 201 && res.data.success) {
+      if (userId) {
         setSuccess(true)
         setTimeout(() => {
           router.push('/signin')
