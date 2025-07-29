@@ -7,5 +7,52 @@
       "password": "22112004@Aa"
     }
   ],
-  "tasks": []
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Set up project wiki",
+      "column": "inprogress",
+      "type": "Task",
+      "code": "TSK-101"
+    },
+    {
+      "id": "2",
+      "title": "Fix broken links",
+      "column": "open",
+      "type": "Bug",
+      "code": "BUG-201",
+      "deadline": "May 1",
+      "priority": true
+    },
+    {
+      "id": "3",
+      "title": "Implement login logic",
+      "column": "inreview",
+      "type": "Task",
+      "code": "TSK-102"
+    },
+    {
+      "id": "4",
+      "title": "Add Kanban drag & drop",
+      "column": "open",
+      "type": "Task",
+      "code": "TSK-103",
+      "priority": false
+    },
+    {
+      "id": "5",
+      "title": "Deploy app to Vercel",
+      "column": "closed",
+      "type": "Task",
+      "code": "TSK-104"
+    },
+    {
+      "id": "6",
+      "title": "Fix login redirect bug",
+      "column": "inreview",
+      "type": "Bug",
+      "code": "BUG-202",
+      "priority": true
+    }
+  ]
 }
