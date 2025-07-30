@@ -1,50 +1,82 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import { Task } from '@/lib/db'
-import { taskApi } from '@/apis/taskApi'
-import Button from './Button'
+import React, { useEffect, useState } from "react";
+import { Task } from "@/lib/db";
+import { taskApi } from "@/apis/taskApi";
+import { userApi } from "@/apis/userApi";
+import Button from "./Button";
 
 type Props = {
-  isOpen: boolean
-  onClose: () => void
-  onCreated: (task: Task) => void
-  defaultColumn?: Task['column']
-}
+  isOpen: boolean;
+  onClose: () => void;
+  onCreated: (task: Task) => void;
+  defaultColumn?: Task["column"];
+};
 
 export default function TaskFormModal({
   isOpen,
   onClose,
   onCreated,
-  defaultColumn = 'open',
+  defaultColumn = "open",
 }: Props) {
-  const [title, setTitle] = useState('')
-  const [type, setType] = useState<'Task' | 'Bug'>('Task')
-  const [dueDate, setDueDate] = useState('')
-  const [urgent, setUrgent] = useState(false)
+  const [title, setTitle] = useState("");
+  const [type, setType] = useState<"Task" | "Bug">("Task");
+  const [dueDate, setDueDate] = useState("");
+  const [urgent, setUrgent] = useState(false);
+  const [user, setUser] = useState<{
+    id: string;
+    name: string;
+    avatar: string;
+  } | null>(null);
 
-  const handleSubmit = async () => {
-    const newTask = {
-      title,
-      type,
-      dueDate,
-      urgent,
-      column: defaultColumn,
-      assigneeAvatar: '/avatar-placeholder.png',
-      assigneeName: 'You',
-      code: `TASK-${Math.floor(Math.random() * 10000)}`,
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      userApi.getById(userId).then((data) => {
+        setUser({
+          id: data.id,
+          name: data.name,
+          avatar: data.avatar || "/images/avatar.png",
+        });
+      });
     }
+  }, []);
 
-    const created = await taskApi.create(newTask)
-    onCreated(created)
-    onClose()
-    setTitle('')
-    setType('Task')
-    setDueDate('')
-    setUrgent(false)
+const handleSubmit = async () => {
+  if (!user) {
+    alert("Bạn chưa đăng nhập");
+    return;
   }
 
-  if (!isOpen) return null
+  const {
+    id: creatorId,
+    name: creatorName,
+    avatar: creatorAvatar,
+  } = user;
+
+  const payload = {
+    title,
+    type,
+    dueDate,
+    urgent,
+    column: defaultColumn,
+    creatorId,
+    creatorName,
+    creatorAvatar,
+  };
+
+  const created = await taskApi.create(payload);
+  onCreated(created);
+  onClose();
+
+  setTitle("");
+  setType("Task");
+  setDueDate("");
+  setUrgent(false);
+};
+
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
@@ -62,7 +94,7 @@ export default function TaskFormModal({
           <select
             className="border p-2 w-full rounded"
             value={type}
-            onChange={(e) => setType(e.target.value as 'Task' | 'Bug')}
+            onChange={(e) => setType(e.target.value as "Task" | "Bug")}
           >
             <option value="Task">Task</option>
             <option value="Bug">Bug</option>
@@ -95,5 +127,5 @@ export default function TaskFormModal({
         </div>
       </div>
     </div>
-  )
+  );
 }

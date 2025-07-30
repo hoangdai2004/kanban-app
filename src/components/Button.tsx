@@ -20,9 +20,9 @@ export default function Button({
   className = '',
 }: ButtonProps) {
   const variantClasses = {
-    primary: 'bg-blue-500 hover:bg-blue-600',
-    secondary: 'bg-gray-500 hover:bg-gray-600',
-    danger: 'bg-red-500 hover:bg-red-600',
+    primary: 'bg-blue-400 hover:bg-blue-600',
+    secondary: 'bg-gray-400 hover:bg-gray-600',
+    danger: 'bg-red-400 hover:bg-red-600',
   }
 
   const finalClass = `${variantClasses[variant]} rounded-md cursor-pointer border border-black text-white p-2 ${className}`

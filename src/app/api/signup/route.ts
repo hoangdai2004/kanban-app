@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     await initDB()
 
-    const userExists = db.data?.users.find(u => u.email === email)
+    const userExists = db.data!.users.find((u) => u.email === email)
     if (userExists) {
       return NextResponse.json({ success: false, message: 'Email already exists' }, { status: 409 })
     }
@@ -22,9 +22,11 @@ export async function POST(req: Request) {
       name,
       email,
       password,
+      avatar: "/images/avatar.png"
     }
 
-    db.data?.users.push(newUser)
+    db.data!.users.push(newUser)
+
     await db.write()
 
     return NextResponse.json({ success: true, userId: newUser.id }, { status: 201 })

@@ -5,11 +5,13 @@ interface User {
   name: string;
   email: string;
   password: string;
+  avatar: string;
 }
 
 export const userApi = {
   getAll: () => axios.get<User[]>("/api/users").then((r) => r.data),
-  getById: (id: string) => axios.get(`/api/users/${id}`).then((r) => r.data),
+  getById: (id: string) =>
+    axios.get<User>(`/api/users/${id}`).then((r) => r.data),
   create: (payload: Omit<User, "id">) =>
     axios
       .post<{ success: boolean; userId: string }>("/api/users", payload)

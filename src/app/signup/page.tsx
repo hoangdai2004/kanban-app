@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from "react"
-import { isAxiosError } from "axios"
 import { useRouter } from "next/navigation"
+
+import rawAxios from "axios"
 
 import { userApi } from "@/apis/userApi"
 import IconImage from "@/components/IconImage"
@@ -12,12 +13,12 @@ import Button from "@/components/Button"
 export default function SignUpPage() {
   const router = useRouter()
 
-  const [name, setName] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [error, setError] = useState<string>('')
-  const [success, setSuccess] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,7 +27,8 @@ export default function SignUpPage() {
     setLoading(true)
 
     try {
-      const userId = await userApi.create({name, email, password})
+      const defaultAvatar = '/images/avatar.png'
+      const userId = await userApi.create({ name, email, password, avatar: defaultAvatar })
 
       if (userId) {
         setSuccess(true)
@@ -36,8 +38,8 @@ export default function SignUpPage() {
       } else {
         setError('Sign up failed')
       }
-    } catch (err) {
-      if (isAxiosError(err)) {
+    } catch (err: unknown) {
+      if (rawAxios.isAxiosError(err)) {
         const message = err.response?.data?.message || 'Sign up failed'
         setError(message)
       } else {
